@@ -78,12 +78,33 @@ def countNeighbors(board, cord, sym="X"):
       living += 1
 
   return living
-      
+
+def ageCell(board, cord, sym="X", alt= "."):
+  """A function that checks what the cel value will update to based on the
+  rules outlined for cgol, returns sym if alive, alt if not"""
+    
+  friends = countNeighbors(board, cord, sym) ## how many buddies
+  living = board[cord[0]][cord[1]] == sym
+  
+  if living and friends == 2:
+    return sym
+  elif friends == 3:
+    return sym
+  else:
+    return alt
+    
+    
+
+    
+  
 ### test code
 tst = newBoard(10,5)
 setCell(tst, (5,2), "X")
 setCell(tst, (6,2), "X")
 setCell(tst, (4,2), "X")
 printBoard(tst)
-print(countNeighbors(tst, (5,2), "X"))
-print(countNeighbors(tst, (6,2), "X"))
+print(countNeighbors(tst, (5,2)))
+print(countNeighbors(tst, (6,2)))
+print(ageCell(tst, (0,0)))
+print(ageCell(tst, (5,2)))
+print(ageCell(tst, (5,3)))

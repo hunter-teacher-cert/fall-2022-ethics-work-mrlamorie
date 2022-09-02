@@ -4,6 +4,9 @@
 # collaborators: 
 # consulted: 
 
+import os
+import time
+
 """
 /**
    The Rules of Life:
@@ -94,17 +97,58 @@ def ageCell(board, cord, sym="X", alt= "."):
     return alt
     
     
+def ageBoard(board, sym="X", alt="."):
+  nextGen =  newBoard(len(board), len(board[0]))
 
+  for i in range(len(board)):
+    for j in range(len(board[0])):
+      nextGen[i][j] = ageCell(board, (i, j), sym, alt)
+
+  return nextGen
     
   
-### test code
-tst = newBoard(10,5)
-setCell(tst, (5,2), "X")
-setCell(tst, (6,2), "X")
-setCell(tst, (4,2), "X")
+### test 1 - block &  blinker
+  
+tst = newBoard(10,10)
+## 3 -> block
+setCell(tst, (1,1), "X")
+setCell(tst, (1,2), "X")
+setCell(tst, (2,2), "X")
+## blinker
+setCell(tst, (5,5), "X")
+setCell(tst, (6,5), "X")
+setCell(tst, (4,5), "X")
+
+### test 2 - tub & toad
+tst2 = newBoard(10,10)
+## tub
+setCell(tst2, (0,1), "X")
+setCell(tst2, (1,0), "X")
+setCell(tst2, (1,2), "X")
+setCell(tst2, (2,1), "X")
+## toad
+setCell(tst2, (6,5), "X")
+setCell(tst2, (6,6), "X")
+setCell(tst2, (6,7), "X")
+setCell(tst2, (7,4), "X")
+setCell(tst2, (7,5), "X")
+setCell(tst2, (7,6), "X")
+
+os.system("clear")
+print("Block and Blinker")
 printBoard(tst)
-print(countNeighbors(tst, (5,2)))
-print(countNeighbors(tst, (6,2)))
-print(ageCell(tst, (0,0)))
-print(ageCell(tst, (5,2)))
-print(ageCell(tst, (5,3)))
+print()
+print("Tub and Toad")
+printBoard(tst2)
+for i in range(30):
+  time.sleep(.5)
+  os.system("clear")
+  tst = ageBoard(tst)
+  tst2 = ageBoard(tst2)
+  print("Block and Blinker")
+  printBoard(tst)
+  print()
+  print("Tub and Toad")
+  printBoard(tst2)
+
+

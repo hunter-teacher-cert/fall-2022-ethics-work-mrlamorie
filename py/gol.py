@@ -98,6 +98,8 @@ def ageCell(board, cord, sym="X", alt= "."):
     
     
 def ageBoard(board, sym="X", alt="."):
+  """A function that creates a new board based on the rules of gol and the 
+  positions of the previous board"""
   nextGen =  newBoard(len(board), len(board[0]))
 
   for i in range(len(board)):
@@ -151,4 +153,5 @@ for i in range(30):
   print("Tub and Toad")
   printBoard(tst2)
 
-
+print()
+print("End of simulations")

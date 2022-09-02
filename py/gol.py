@@ -50,21 +50,40 @@ def validNeighbors(board, cord):
   maxRow = len(board) -1
   maxCol = len(board[0]) -1
   goodCords = []
-  
+
+  #small than going though the whole thing
   for i in range(-1, 2):
     for j in range(-1, 2):
       testCord = (cord[0] + i, cord[1] + j)
+
+      #ugly conditional
       if (testCord[0] >= 0 and testCord[0] <= maxRow 
           and testCord[1] >= 0 and testCord[1] <= maxCol):
+            
+        #second ugly conditional
         if not(cord[0] == testCord[0] and cord[1] == testCord[1]):
-          goodCords.append(testCord)
+          goodCords.append(testCord) #on the board and not self
 
   return goodCords
         
+def countNeighbors(board, cord, sym="X"):
+  """A function to count the number of living neighbors with the valid neighbors
+  of a given coord, a living neigbor as defined by symol sym"""
+
+  testCells = validNeighbors(board,cord)  #get list of valid cells as tuples 
+  living = 0 # number of living neighbors
   
-  
+  for cell in testCells:
+    if board[cell[0]][cell[1]] == sym:
+      living += 1
+
+  return living
+      
 ### test code
 tst = newBoard(10,5)
-setCell(tst, (9,0), "X")
+setCell(tst, (5,2), "X")
+setCell(tst, (6,2), "X")
+setCell(tst, (4,2), "X")
 printBoard(tst)
-print(validNeighbors(tst, (9,0)))
+print(countNeighbors(tst, (5,2), "X"))
+print(countNeighbors(tst, (6,2), "X"))

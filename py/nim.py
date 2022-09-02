@@ -1,8 +1,8 @@
 # nim.py
 # William LaMorie
 # CSCI 77800 Fall 2022
-# collaborators: 
-# consulted: 
+# collaborators:  NA
+# consulted: NA
 
 import random
 

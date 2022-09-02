@@ -35,13 +35,36 @@ def printBoard(board):
       print(c, end=' ') #end =' ' doube duties not adding a NL & spacing out
     print()
 
-def setCell(board, row, col, sym):
+def setCell(board, cord, sym):
   """A function that takes in 2d array "board" and sets the string value of a
-  cell at board[row][col] to symbol sym. """
+  cell at board[coordinates] to symbol sym. """
 
-  board[row][col] = sym
+  board[cord[0]][cord[1]] = sym
 
+
+def validNeighbors(board, cord):
+  """A function that takes a location of cord on a board, uses the board's
+  size at row 0 (assumes a non jagged board) to return a list of touples of 
+  neighbors that are valdily within the correct area of the board."""
+  
+  maxRow = len(board) -1
+  maxCol = len(board[0]) -1
+  goodCords = []
+  
+  for i in range(-1, 2):
+    for j in range(-1, 2):
+      testCord = (cord[0] + i, cord[1] + j)
+      if (testCord[0] >= 0 and testCord[0] <= maxRow 
+          and testCord[1] >= 0 and testCord[1] <= maxCol):
+        if not(cord[0] == testCord[0] and cord[1] == testCord[1]):
+          goodCords.append(testCord)
+
+  return goodCords
+        
+  
+  
 ### test code
 tst = newBoard(10,5)
-setCell(tst, 1, 2, "X")
+setCell(tst, (9,0), "X")
 printBoard(tst)
+print(validNeighbors(tst, (9,0)))

@@ -13,6 +13,8 @@ def binarySearch(struct, val):
 
   while True:
     if high <= low:  # base case, does not exist on list
+      if mid == 0 and struct[mid] == val:
+        return mid
       return -1
     elif struct[mid] == val: #found
       return mid
@@ -26,7 +28,7 @@ def binarySearch(struct, val):
 
 ## list test:
 print("List test")
-tst = [0,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+tst = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 print(binarySearch(tst, 5)) #should be 6
 print(binarySearch(tst, 0)) #should be 0 or 1
 print(binarySearch(tst, 55)) #should be -1

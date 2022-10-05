@@ -1,18 +1,18 @@
 import re
 
 
-def find_date(line):
-    pattern = r"\d{1,2}/\d{1,2}/\d{2,4}"
+def find_name(line):
+    pattern = r"[A-Za-z,\.]{2,50}||[A-Za-z]{2,50}"
     result = re.findall(pattern,line)
-
-    pattern=r'(October|Oct|November|Nov)( [0-9]{1,2}, [0-9]{4})'
-    result = result + re.findall(pattern,line)
+    
     return result
 
 
-f = open("datefile.dat")
+f = open("names.txt")
 for line in f.readlines():
-    #print(line)
-    result = find_date(line)
-    if (len(result)>0):
-        print(result)
+    result = find_name(line)
+    for i in result:
+      if (len(i)>0):
+          print(i, end=" ")
+          
+    print()

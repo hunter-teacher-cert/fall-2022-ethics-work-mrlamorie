@@ -42,7 +42,16 @@ def makeMap(w=30, h=30, fill='.', dict=False, debug=False):
 
   return board
 
-def printMap(): # split from makeMap later typically
+def printMap(map, sep=' '): # split from makeMap later typically
+  '''
+  Prints a map from a 2d list of dicts, chars not supported. Char
+  maps were for construction and understanding purposes only.
+  @param map {list}: a 2d list of one of the required formats
+  @param sep {char}: a seperator for each of the items
+  '''
+  for row in map:
+    continue
+  
   return "Map"
 
 def coorPicker(n=115, w=30, h=30):
@@ -53,5 +62,6 @@ def populateBoard(board, h=100, n=15):
     
 '''
 step tests
+print(makeMap(debug=True)) #makeMap tested
 '''
-print(makeMap(debug=True))
+

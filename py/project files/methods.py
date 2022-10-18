@@ -11,6 +11,8 @@ def makeMap(w=30, h=30, fill='.', dict=False, debug=False):
   @param fill {char}: default fill of board
   @param dict {bool}: dict(T) string(F)
   @param debug {bool}: if true, dict with name, x, y
+
+  @return {list}: a 2d map
   '''
   
   # deal with option dict or text
@@ -50,9 +52,10 @@ def printMap(map, sep=' '): # split from makeMap later typically
   @param sep {char}: a seperator for each of the items
   '''
   for row in map:
-    continue
-  
-  return "Map"
+    for col in row:
+      print(col.get('name'), end=sep)
+    print()
+  print()
 
 def coorPicker(n=115, w=30, h=30):
   return ({'x':0, 'y':0})
@@ -63,5 +66,7 @@ def populateBoard(board, h=100, n=15):
 '''
 step tests
 print(makeMap(debug=True)) #makeMap tested
+tst = makeMap(debug=True)
+printMap(tst)  #printMap tested
 '''
 

@@ -57,16 +57,46 @@ def printMap(map, sep=' '): # split from makeMap later typically
     print()
   print()
 
-def coorPicker(n=115, w=30, h=30):
-  return ({'x':0, 'y':0})
+def coordPicker(n=115, w=30, h=30):
+  '''
+  Vomits out n number of sets of coordinates within the range
+  of w for x and h for y. chose to do this with w and h rather than
+  with the map, as it is used at seeding just like the map is
+  @param n {int}: number of items to be vomited out.
+  @param w {int}: number of columns
+  @param h {int}: number of rows
+  @return {list}: a list of coordinates in x & y format.
+  '''
+  coords = []
+  # computationally heavy as the number of wanted items
+  # approaches the size of the board, but very likely much like
+  # a strong student answer
+  while len(coords) < n:
+    x = random.randrange(w)
+    y = random.randrange(h)
 
-def populateBoard(board, h=100, n=15):
-  return ()
+    #check to see if they are unique coords
+    unique = True
+    for c in coords:
+      if c.get('x') == x and c.get('y') == y:
+        unique = False
+
+    #it was unique
+    if unique:
+      coords.append({'x': x, 'y': y})
+
+    
+  return coords
+
+def startBoard(w=30, h=30, p=100, c=15):
+  
+  return board
     
 '''
 step tests
 print(makeMap(debug=True)) #makeMap tested
 tst = makeMap(debug=True)
 printMap(tst)  #printMap tested
+print(coordPicker())
 '''
 

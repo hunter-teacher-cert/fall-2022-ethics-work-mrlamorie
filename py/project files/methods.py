@@ -1,6 +1,7 @@
 import os
 import time
 import random
+import copy
 
 
 def makeMap(w=30, h=30, fill='.', dict=False, debug=False):
@@ -91,10 +92,10 @@ def coordPicker(n=115, w=30, h=30):
 def startBoard(w, h, *players):
   '''
   makes a board with a width of w, height of h, and players of each type and number of type. Players are defined by a proto like dictionary. EG - 
-  predator = {'number': 15, 'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  
- ['O', '.']}
-prey =  {'number': 100, 'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  
- ['.']}
+  predator = {'number': 15, info: {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  
+ ['O', '.']}}
+prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  
+ ['.']}}
   @param w {int}: the width of the map
   @param h {int}: the height of the map
   @param *players {dict}: the players and their rules as above
@@ -110,14 +111,17 @@ prey =  {'number': 100, 'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHu
   if totalPlayers > (w * h):
     raise Exception("Can not have more players then board size")
 
+  #otherwise, get spaces make map, combine
+  placementList = coordPicker(totalPlayers, w, h)
+  map = makeMap(w, h, fill='.', dict=True)
   
-    
+  return map
 '''
 test player dictionaries - 
-predator = {'number': 15, 'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  
- ['O', '.']}
-prey =  {'number': 100, 'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  
- ['.']}
+predator = {'number': 15, {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  
+ ['O', '.']}}
+prey =  {'number': 100, {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  
+ ['.']}}
 step tests
 print(makeMap(debug=True)) #makeMap tested
 tst = makeMap(debug=True)
@@ -126,3 +130,15 @@ print(coordPicker())
 tst = startBoard(-1, -1, {'number': 30}, {'number': 15}, {'number': 10})
 print(tst) #startBoard *args tested, range error tested
 '''
+
+
+
+
+
+prey =  {'number': 100, 'stats:' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
+
+predator =  {'number': 15, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
+
+tst = startBoard(30, 30, prey, predator)
+
+printMap(tst)

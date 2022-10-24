@@ -138,10 +138,44 @@ def posMoves(x, y, w, h, teleport):
   if (abs(x - x1) != 1) and teleport == True: #constraint
     moves.append({'x': x, 'y': y1})
 
+  random.shuffle(moves) #because random walk
   return moves
 
 
+def move(x, y, w, h, fill, map):
+  '''
+  Moves the player. Updates age, and updates hunger. If the player 
+  has more then one move in their list all moves other then the last one
+  will be considered attempts to eat.
+  @param {int} x : x value to be tested
+  @param {int} y : y value to be tested
+  @param {int} w : max width value
+  @param {int} h : max height value
+  @param {char} fill : default fill of map
+  @param {list} map : the gameplay map
 
+  @return none
+  '''
+  local = posMoves(x, y, w, h, map[y][x].get('teleport'))
+
+  map[y][x]['age'] += 1 #age up the critter
+  if map[y][x]['maxHunger'] != -1:
+    map[y][x]['hunger'] += 1 #make hungry if needbe
+
+  moved = False
+
+  for type in map[y][x]['order']:
+    for loc in local:
+      if moved == False: #to cut down on extra acceses 
+        if map[loc['y']][loc['x']]['name'] == type:
+          if map[y][x]['hunger'] > 0 and type != fill:
+            map[y][x]['hunger'] = 0
+          
+          map[loc['y'][loc['x']] = copy.deepcopy(map[y][x])
+            
+          
+    
+  
 
 ## -------- game f(x)ns
 
@@ -184,9 +218,9 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
 
 '''
 test player dictionaries - 
-prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
+prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'] } }
 
-predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
+predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', 'empty'] } }
 step tests
 print(makeMap(debug=True)) #makeMap tested
 tst = makeMap(debug=True)
@@ -204,6 +238,6 @@ predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunge
 tst = startBoard(30, 30, prey, predator)
 
 printMap(tst)
-
+print(posMoves(2,2, 30, 30, False))
 
 

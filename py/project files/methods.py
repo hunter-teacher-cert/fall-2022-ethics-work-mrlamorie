@@ -168,13 +168,13 @@ def move(x, y, w, h, fill, map):
     for loc in local:
       if moved == False: #to cut down on extra acceses 
         if map[loc['y']][loc['x']]['name'] == type:
+          
           if map[y][x]['hunger'] > 0 and type != fill:
             map[y][x]['hunger'] = 0
-          
-          map[loc['y'][loc['x']] = copy.deepcopy(map[y][x])
             
+          map[loc['y']][loc['x']] = copy.deepcopy(map[y][x])
+          moved = True
           
-    
   
 
 ## -------- game f(x)ns

@@ -127,7 +127,7 @@ def posMoves(x, y, w, h, teleport):
     y1 = y1 + h
   if abs(y - y1) == 1:
     moves.append({'x': x, 'y': y1})
-  if (abs(x - x1) != 1) and teleport == True: #constraint
+  if (abs(y - y1) != 1) and teleport == True: #constraint
     moves.append({'x': x, 'y': y1})  
   
   y1 = y + 1
@@ -156,8 +156,9 @@ def move(x, y, w, h, fill, map):
 
   @return none
   '''
-  local = posMoves(x, y, w, h, map[y][x].get('teleport'))
-
+  local = posMoves(x, y, w, h, map[y][x]['teleport'])
+  print(map[y][x])
+  
   map[y][x]['age'] += 1 #age up the critter
   if map[y][x]['maxHunger'] != -1:
     map[y][x]['hunger'] += 1 #make hungry if needbe
@@ -230,14 +231,23 @@ tst = startBoard(-1, -1, {'number': 30}, {'number': 15}, {'number': 10})
 print(tst) #startBoard *args tested, range error tested
 tested move return - 
 print(posMoves(29,29, 30, 30, False))
-'''
+
 prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
 
-predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
+predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'] } }
 
 tst = startBoard(30, 30, prey, predator)
 
 printMap(tst)
 print(posMoves(2,2, 30, 30, False))
+'''
 
+tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
+
+tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'] }
+
+#print(posMoves(0, 0, 10, 10, False))
+move(0, 0, 10, 10, '.', tst)
+
+printMap(tst)
 

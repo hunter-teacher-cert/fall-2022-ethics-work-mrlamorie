@@ -15,20 +15,14 @@ def makeMap(w=30, h=30, fill='.', dict=False, debug=False):
 
   @return {list}: a 2d map
   '''
-  
-  # deal with option dict or text
-  if dict:
-    fill = {'name': fill}
-  else:
-    fill = fill
 
-  # more verbose by design, gives studenta a location tool and
-  # forces them to break out loops into a more classical form
+  #simple pythonic construction
+  if not dict and not debug:
+    board = [[fill for i in range(h)] for j in range(w)]
+    return board
+    
   if debug:
-
     # make sure to deal with double true
-    if dict:
-      fill = fill.get('name')
       
     board = []
     for i in range(h):
@@ -39,9 +33,9 @@ def makeMap(w=30, h=30, fill='.', dict=False, debug=False):
       board.append(row)
     return board
 
-  # pythonic way for simple board construction
+
   else:
-    board = [[fill for i in range(h)] for j in range(w)]
+    board = [[{'name': fill} for i in range(h)] for j in range(w)]
 
   return board
 
@@ -114,6 +108,16 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
   #otherwise, get spaces make map, combine
   placementList = coordPicker(totalPlayers, w, h)
   map = makeMap(w, h, fill='.', dict=True)
+
+  #have map & coords, do the 
+  for i in players:
+    placed = 0 #track how many have been placed
+    while placed < i.get('number'):
+      coord = placementList.pop()
+      print(coord)
+      map[coord.get('y')][coord.get('x')] = 'insert deep copy here'
+      placed += 1
+    
   
   return map
 '''
@@ -135,7 +139,7 @@ print(tst) #startBoard *args tested, range error tested
 
 
 
-prey =  {'number': 100, 'stats:' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
+prey =  {'number': 5, 'stats:' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
 
 predator =  {'number': 15, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
 

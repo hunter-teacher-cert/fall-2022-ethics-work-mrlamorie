@@ -114,8 +114,7 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
     placed = 0 #track how many have been placed
     while placed < i.get('number'):
       coord = placementList.pop()
-      print(coord)
-      map[coord.get('y')][coord.get('x')] = 'insert deep copy here'
+      map[coord.get('y')][coord.get('x')] = copy.deepcopy(i.get('stats'))
       placed += 1
     
   
@@ -139,9 +138,9 @@ print(tst) #startBoard *args tested, range error tested
 
 
 
-prey =  {'number': 5, 'stats:' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
+prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
 
-predator =  {'number': 15, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
+predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
 
 tst = startBoard(30, 30, prey, predator)
 

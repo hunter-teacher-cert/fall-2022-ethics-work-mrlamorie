@@ -3,6 +3,7 @@ import time
 import random
 import copy
 
+## -------- map making f(x)ns
 
 def makeMap(w=30, h=30, fill='.', dict=False, debug=False):
   '''
@@ -83,6 +84,67 @@ def coordPicker(n=115, w=30, h=30):
     
   return coords
 
+
+## -------- coord f(x)ns
+
+def posMoves(x, y, w, h, teleport):
+  '''
+  posMoves
+  returns a set of moves on the board within the params of the board
+  and if teleport = true or !
+  This could have been written with a dict pass and the map edges,
+  but this generic version allows for easier testing and should
+  be simular under the hood
+  @param {int} x : x value to be tested
+  @param {int} y : y value to be tested
+  @param {int} w : max width value
+  @param {int} h : max height value
+  @param {bool} teleport : true or false can teleport
+
+  @return {list}: a list of coordiantes in x y keyed dictionary
+  '''
+  moves = [] # for the potential moves
+
+  #long and explicit way - likely what students will pick
+  x1 = x -1
+  if x1 < 0:
+    x1 = x1 + w
+  if abs(x - x1) == 1:
+    moves.append({'x': x1, 'y': y})
+  if (abs(x - x1) != 1) and teleport == True: #constraint
+    moves.append({'x': x1, 'y': y})
+    
+  x1 = x + 1
+  if x1 == w:
+    x1 = 0
+  if abs(x - x1) == 1:
+    moves.append({'x': x1, 'y': y})
+  if (abs(x - x1) != 1) and teleport == True: #constraint
+    moves.append({'x': x1, 'y': y})
+  
+  y1 = y -1
+  if y1 < 0:
+    y1 = y1 + h
+  if abs(y - y1) == 1:
+    moves.append({'x': x, 'y': y1})
+  if (abs(x - x1) != 1) and teleport == True: #constraint
+    moves.append({'x': x, 'y': y1})  
+  
+  y1 = y + 1
+  if y1 == h:
+    y1 = 0
+  if abs(y - y1) == 1:
+    moves.append({'x': x, 'y': y1})
+  if (abs(x - x1) != 1) and teleport == True: #constraint
+    moves.append({'x': x, 'y': y1})
+
+  return moves
+
+
+
+
+## -------- game f(x)ns
+
 def startBoard(w, h, *players):
   '''
   makes a board with a width of w, height of h, and players of each type and number of type. Players are defined by a proto like dictionary. EG - 
@@ -119,12 +181,12 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
     
   
   return map
+
 '''
 test player dictionaries - 
-predator = {'number': 15, {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  
- ['O', '.']}}
-prey =  {'number': 100, {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  
- ['.']}}
+prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
+
+predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
 step tests
 print(makeMap(debug=True)) #makeMap tested
 tst = makeMap(debug=True)
@@ -132,12 +194,9 @@ printMap(tst)  #printMap tested
 print(coordPicker())
 tst = startBoard(-1, -1, {'number': 30}, {'number': 15}, {'number': 10})
 print(tst) #startBoard *args tested, range error tested
+tested move return - 
+print(posMoves(29,29, 30, 30, False))
 '''
-
-
-
-
-
 prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
 
 predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'] } }
@@ -145,3 +204,6 @@ predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunge
 tst = startBoard(30, 30, prey, predator)
 
 printMap(tst)
+
+
+

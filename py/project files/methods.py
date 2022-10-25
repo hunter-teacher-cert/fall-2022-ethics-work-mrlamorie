@@ -183,6 +183,32 @@ def move(x, y, w, h, fill, map):
 
 ## -------- game f(x)ns
 
+
+def update(x, y, w, h, fill, map):
+  '''
+  Will deal with all non move updates. aka reproduction and death
+  @param {int} x : x value to be tested
+  @param {int} y : y value to be tested
+  @param {int} w : max width value
+  @param {int} h : max height value
+  @param {char} fill : default fill of map
+  @param {list} map : the gameplay map
+
+  @return none
+  '''
+  #check for death, remove if dead
+  #first check to see if immortal
+  if map[y][x]['maxHunger'] == -1:
+    continue
+
+  else:
+    if map[y][x]['maxHunger'] == map[y][x]['hunger']:
+      map[y][x] = {'name': fill}
+
+  #if not dead, check for age >= max age, if so, breed
+  #if bred then reset age counter
+  
+
 def startBoard(w, h, *players):
   '''
   makes a board with a width of w, height of h, and players of each type and number of type. Players are defined by a proto like dictionary. EG - 

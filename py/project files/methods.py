@@ -207,7 +207,10 @@ def update(x, y, w, h, fill, map):
 
   #if not dead, check for age >= max age, if so, breed
   #if bred then reset age counter
-  
+  if map[y][x]['age'] >= map[y][x]['maxAge']:
+    #check for a free space
+    #if no free space, continue
+    #if free space, reset age, make clone
 
 def startBoard(w, h, *players):
   '''

@@ -157,7 +157,6 @@ def move(x, y, w, h, fill, map):
   @return none
   '''
   local = posMoves(x, y, w, h, map[y][x]['teleport'])
-  print(map[y][x])
   
   map[y][x]['age'] += 1 #age up the critter
   if map[y][x]['maxHunger'] != -1:
@@ -167,13 +166,17 @@ def move(x, y, w, h, fill, map):
 
   for type in map[y][x]['order']:
     for loc in local:
-      if moved == False: #to cut down on extra acceses 
+      if moved == False: #to cut down on extra loops 
+        # the below works because it will eat anything other
+        # than the fill because fill is noted in the list
+        # as 'empty'
         if map[loc['y']][loc['x']]['name'] == type:
           
           if map[y][x]['hunger'] > 0 and type != fill:
             map[y][x]['hunger'] = 0
             
           map[loc['y']][loc['x']] = copy.deepcopy(map[y][x])
+          map[y][x] = {'name' : fill}
           moved = True
           
   
@@ -222,24 +225,7 @@ test player dictionaries -
 prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'] } }
 
 predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', 'empty'] } }
-step tests
-print(makeMap(debug=True)) #makeMap tested
-tst = makeMap(debug=True)
-printMap(tst)  #printMap tested
-print(coordPicker())
-tst = startBoard(-1, -1, {'number': 30}, {'number': 15}, {'number': 10})
-print(tst) #startBoard *args tested, range error tested
-tested move return - 
-print(posMoves(29,29, 30, 30, False))
 
-prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'] } }
-
-predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'] } }
-
-tst = startBoard(30, 30, prey, predator)
-
-printMap(tst)
-print(posMoves(2,2, 30, 30, False))
 '''
 
 tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)

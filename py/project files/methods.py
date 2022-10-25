@@ -232,8 +232,10 @@ tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
 
 tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'] }
 
+tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'] }
 #print(posMoves(0, 0, 10, 10, False))
 move(0, 0, 10, 10, '.', tst)
 
 printMap(tst)
+print(tst[0][1])
 

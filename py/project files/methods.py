@@ -208,9 +208,22 @@ def update(x, y, w, h, fill, map):
   #if not dead, check for age >= max age, if so, breed
   #if bred then reset age counter
   if map[y][x]['age'] >= map[y][x]['maxAge']:
-    #check for a free space
+    #get list of neighbor cells
+    checkList = posMoves(x, y, w, h, map[y][x]['teleport'])
+    #check to see which spaces are empty
+    for loc in checkList:
+      #if empty space list is not empty, then make baby
+      if map[loc['y']][loc['x']]['name'] == fill:
+        #reset age
+        map[y][x]['age'] = 0
+        map[loc['y']][loc['x']] = copy.deepcopy(map[y][x])
+        #reset hunger if not prey for baby clone
+        if map[loc['y']][loc['x']]['maxHunger'] != -1:
+          map[loc['y']][loc['x']]['hunger'] = 0
+    
+    
     #if no free space, continue
-    #if free space, reset age, make clone
+    
 
 def startBoard(w, h, *players):
   '''

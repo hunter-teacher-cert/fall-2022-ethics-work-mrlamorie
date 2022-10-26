@@ -162,12 +162,11 @@ def move(x, y, w, h, fill, map):
   if map[y][x]['maxHunger'] != -1:
     map[y][x]['hunger'] += 1 #make hungry if needbe
 
-  moved = False
 
   for type in map[y][x]['order']:
     for loc in local:
       ## TODO: move the below to a tracker in the dict
-      if moved == False: #to cut down on extra loops 
+      if map[y][x]['moved'] == False: #to cut down on extra loops 
         # the below works because it will eat anything other
         # than the fill because fill is noted in the list
         # as 'empty'
@@ -176,9 +175,10 @@ def move(x, y, w, h, fill, map):
           if map[y][x]['hunger'] > 0 and type != fill:
             map[y][x]['hunger'] = 0
             
+          map[y][x]['moved'] = True
           map[loc['y']][loc['x']] = copy.deepcopy(map[y][x])
           map[y][x] = {'name' : fill}
-          moved = True
+          
           
   
 
@@ -198,11 +198,10 @@ def update(x, y, w, h, fill, map):
   @return none
   '''
   #check for death, remove if dead
-  #first check to see if immortal
-  if map[y][x]['maxHunger'] == -1:
-    continue
-
-  else:
+  #first check to see if not immortal
+  if map[y][x]['maxHunger'] > -1:
+    
+    #if it died
     if map[y][x]['maxHunger'] == map[y][x]['hunger']:
       map[y][x] = {'name': fill}
 
@@ -267,17 +266,17 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
 
 '''
 test player dictionaries - 
-prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'] } }
+prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'], 'moved' : False } }
 
-predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', 'empty'] } }
+predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', 'empty'], 'moved' : False } }
 
 '''
 
 tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
 
-tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'] }
+tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
 
-tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'] }
+tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'], 'moved': False  }
 #print(posMoves(0, 0, 10, 10, False))
 move(0, 0, 10, 10, '.', tst)
 

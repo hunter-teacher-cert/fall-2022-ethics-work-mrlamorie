@@ -142,6 +142,7 @@ def posMoves(x, y, w, h, teleport):
   return moves
 
 
+
 def move(x, y, w, h, fill, map):
   '''
   Moves the player. Updates age, and updates hunger. If the player 
@@ -222,16 +223,30 @@ def update(x, y, w, h, fill, map):
     
     #if no free space, continue
 
-##TODO: add an reset function that just resets the moved state
+
 def reset(map, fill):
+  '''
+  a function to reset all ents to not moved to start a new 
+  turn
+  @param {list} map: a 2d array of dictionaries
+  @param {char} fill: the 'name' value of the fill type
+
+  No return, mutates map
+  '''
   for row in map:
     for col in row:
       if col['name'] != fill:
         col['moved'] = False
 
 ##TODO: add a function to:
+def turn(w, h, fill, map):
   #reset board move states
+  reset(map, fill)
   #move mobs
+  for y in range(w):
+    for x in range(h):
+      if map[y][x]['name'] != fill:
+        move(x, y, w, h, fill, map)
   #apply update
 
 ## -------- game f(x)ns
@@ -282,15 +297,6 @@ predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunge
 
 tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
 
-tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
+#tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
 
 tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }
-print(posMoves(0, 0, 10, 10, False))
-move(0, 0, 10, 10, '.', tst)
-
-printMap(tst)
-print(tst[0][1])
-reset(tst, '.')
-print(tst[0][1])
-
-

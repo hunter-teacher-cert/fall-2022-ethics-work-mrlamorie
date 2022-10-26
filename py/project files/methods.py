@@ -168,9 +168,6 @@ def move(x, y, w, h, fill, map):
     for loc in local:
       ## TODO: move the below to a tracker in the dict
       if 'moved'in map[y][x] and map[y][x]['moved'] == False: #to cut down on extra loops 
-        # the below works because it will eat anything other
-        # than the fill because fill is noted in the list
-        # as 'empty'
         if map[loc['y']][loc['x']]['name'] == type:
           
           if map[y][x]['hunger'] > 0 and type != fill:
@@ -266,9 +263,9 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
 
 '''
 test player dictionaries - 
-prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'], 'moved' : False } }
+prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved' : False } }
 
-predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', 'empty'], 'moved' : False } }
+predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'], 'moved' : False } }
 
 '''
 
@@ -276,10 +273,12 @@ tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
 
 tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
 
-tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['empty'], 'moved': False  }
-#print(posMoves(0, 0, 10, 10, False))
+tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }
+print(posMoves(0, 0, 10, 10, False))
 move(0, 0, 10, 10, '.', tst)
 
 printMap(tst)
 print(tst[0][1])
+
+
 

@@ -166,6 +166,7 @@ def move(x, y, w, h, fill, map):
 
   for type in map[y][x]['order']:
     for loc in local:
+      ## TODO: move the below to a tracker in the dict
       if moved == False: #to cut down on extra loops 
         # the below works because it will eat anything other
         # than the fill because fill is noted in the list
@@ -220,10 +221,12 @@ def update(x, y, w, h, fill, map):
         #reset hunger if not prey for baby clone
         if map[loc['y']][loc['x']]['maxHunger'] != -1:
           map[loc['y']][loc['x']]['hunger'] = 0
-    
+          #test to see if this will work to end the for loop
+          break
     
     #if no free space, continue
     
+##TODO: add an update function that just resets the moved state
 
 def startBoard(w, h, *players):
   '''

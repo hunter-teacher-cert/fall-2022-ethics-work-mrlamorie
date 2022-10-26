@@ -157,16 +157,17 @@ def move(x, y, w, h, fill, map):
   @return none
   '''
   local = posMoves(x, y, w, h, map[y][x]['teleport'])
-  
-  map[y][x]['age'] += 1 #age up the critter
-  if map[y][x]['maxHunger'] != -1:
-    map[y][x]['hunger'] += 1 #make hungry if needbe
+  if map[y][x]['moved'] == False:
+    map[y][x]['age'] += 1 #age up the critter
+    if map[y][x]['maxHunger'] != -1:
+      map[y][x]['hunger'] += 1 #make hungry if needbe
 
 
   for type in map[y][x]['order']:
+    
     for loc in local:
       ## TODO: move the below to a tracker in the dict
-      if map[y][x]['moved'] == False: #to cut down on extra loops 
+      if 'moved'in map[y][x] and map[y][x]['moved'] == False: #to cut down on extra loops 
         # the below works because it will eat anything other
         # than the fill because fill is noted in the list
         # as 'empty'
@@ -178,7 +179,6 @@ def move(x, y, w, h, fill, map):
           map[y][x]['moved'] = True
           map[loc['y']][loc['x']] = copy.deepcopy(map[y][x])
           map[y][x] = {'name' : fill}
-          
           
   
 

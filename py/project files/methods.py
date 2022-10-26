@@ -220,7 +220,7 @@ def update(x, y, w, h, fill, map):
         if map[loc['y']][loc['x']]['maxHunger'] != -1:
           map[loc['y']][loc['x']]['hunger'] = 0
           #test to see if this will work to end the for loop
-      break
+        break
     
     #if no free space, continue
 

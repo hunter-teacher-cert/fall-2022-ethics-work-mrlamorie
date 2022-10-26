@@ -179,7 +179,7 @@ def move(x, y, w, h, fill, map):
           
   
 
-## -------- game f(x)ns
+
 
 
 def update(x, y, w, h, fill, map):
@@ -221,9 +221,20 @@ def update(x, y, w, h, fill, map):
           break
     
     #if no free space, continue
-    
-##TODO: add an update function that just resets the moved state
 
+##TODO: add an reset function that just resets the moved state
+def reset(map, fill):
+  for row in map:
+    for col in row:
+      if col['name'] != fill:
+        col['moved'] = False
+
+##TODO: add a function to:
+  #reset board move states
+  #move mobs
+  #apply update
+
+## -------- game f(x)ns
 def startBoard(w, h, *players):
   '''
   makes a board with a width of w, height of h, and players of each type and number of type. Players are defined by a proto like dictionary. EG - 
@@ -279,6 +290,7 @@ move(0, 0, 10, 10, '.', tst)
 
 printMap(tst)
 print(tst[0][1])
-
+reset(tst, '.')
+print(tst[0][1])
 
 

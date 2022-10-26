@@ -255,6 +255,7 @@ def turn(w, h, fill, map):
         update(x, y, w, h, fill, map)
 ## -------- game f(x)ns
 def startBoard(w, h, *players):
+  
   '''
   makes a board with a width of w, height of h, and players of each type and number of type. Players are defined by a proto like dictionary. EG - 
   predator = {'number': 15, info: {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  

@@ -235,27 +235,37 @@ def reset(map, fill):
   No return, mutates map
   '''
   for row in map:
-    for col in row:
+    for col in row: #only update livings
       if col['name'] != fill:
         col['moved'] = False
 
-##TODO: add a function to:
+
 def turn(w, h, fill, map):
-  #reset board move states
+  '''
+  A function to do all the steps of a turn. 
+  @param {int} w : max width value
+  @param {int} h : max height value
+  @param {char} fill : default fill of map
+  @param {list} map : the gameplay map
+
+  '''
+  #reset board move states to false
   reset(map, fill)
+  
   #move mobs
   for y in range(w):
     for x in range(h):
       if map[y][x]['name'] != fill:
         move(x, y, w, h, fill, map)
-  #apply update
+        
+  #apply update (birth/death)
   for y in range(w):
     for x in range(h):
       if map[y][x]['name'] != fill:
         update(x, y, w, h, fill, map)
+      
 ## -------- game f(x)ns
 def startBoard(w, h, *players):
-  
   '''
   makes a board with a width of w, height of h, and players of each type and number of type. Players are defined by a proto like dictionary. EG - 
   predator = {'number': 15, info: {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  
@@ -292,33 +302,27 @@ prey =  {'number': 100, info:{'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 
   
   return map
 
-'''
-test player dictionaries - 
-prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved' : False } }
+## -------- game vars & init:
 
-predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'], 'moved' : False } }
-'''
+predator = {'number': 15, 'stats': {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }}
 
-tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
+prey= {'number': 100, 'stats': {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }}
 
-predator = {'number': 1, 'stats': {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }}
 
-prey= {'number': 20, 'stats': {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }}
-tst = startBoard(10, 10, predator, prey)
+
+## -------- game start & loop
+width = 30
+height = 30
+tst = startBoard(width, height, predator, prey)
+os.system("clear")
 printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
-turn(10, 10, '.', tst)
-printMap(tst)
+
+## TODO: make the fill definable in the board constructor
+## TODO: make a function out of the loop?
+
+for i in range(200): #random number of test
+  time.sleep(.5)
+  os.system("clear")
+  turn(width, height, '.', tst)
+  printMap(tst)
+

@@ -202,6 +202,7 @@ def update(x, y, w, h, fill, map):
     #if it died
     if map[y][x]['maxHunger'] == map[y][x]['hunger']:
       map[y][x] = {'name': fill}
+      return #blank return for dead
 
   #if not dead, check for age >= max age, if so, breed
   #if bred then reset age counter
@@ -295,15 +296,18 @@ test player dictionaries -
 prey =  {'number': 100, 'stats' : {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved' : False } }
 
 predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': True, 'order':  ['O', '.'], 'moved' : False } }
-
 '''
 
 tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
 
-#tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
+tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
 
 tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }
 
+printMap(tst)
+turn(10, 10, '.', tst)
+printMap(tst)
+turn(10, 10, '.', tst)
 printMap(tst)
 turn(10, 10, '.', tst)
 printMap(tst)

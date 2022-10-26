@@ -301,10 +301,16 @@ predator =  {'number': 15, 'stats' : {'name': 'X', 'age': 0, 'maxAge': 6, 'hunge
 
 tst = makeMap(w=10, h=10, fill='.', dict=True, debug=False)
 
-tst[0][0] = {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }
+predator = {'number': 1, 'stats': {'name': 'X', 'age': 0, 'maxAge': 6, 'hunger': 0, 'maxHunger': 3, 'teleport': False, 'order':  ['O', '.'], 'moved': False  }}
 
-tst[0][1] = {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }
-
+prey= {'number': 20, 'stats': {'name': 'O', 'age': 0, 'maxAge': 3, 'hunger': -1, 'maxHunger': -1, 'teleport': True, 'order':  ['.'], 'moved': False  }}
+tst = startBoard(10, 10, predator, prey)
+printMap(tst)
+turn(10, 10, '.', tst)
+printMap(tst)
+turn(10, 10, '.', tst)
+printMap(tst)
+turn(10, 10, '.', tst)
 printMap(tst)
 turn(10, 10, '.', tst)
 printMap(tst)

@@ -1,0 +1,2 @@
+1. Customer indicates how many seets are needed, and how many need to be seated togather.
+2. A. If the customer request can be met, do so and end. <br> B. If it can not be, then indicate that this request can not be met, check for the number of seats, and nearly togather seating (accross the isle, in front of/behind) <br>B1. If there exist seating with nearly togather options, offer it. <br>B2.If not, offer seating if amount of seats desired is aviable, indicate and offer. End. <br>B3. If number of seats requested is not avialable, end. 

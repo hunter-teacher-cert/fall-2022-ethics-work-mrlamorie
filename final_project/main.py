@@ -1,9 +1,6 @@
 import random
 
-
-
-
-
+# get you some user input for great justice!
 dem_plots = int(input("How many democrat centers do you want to plot? "))
 gop_plots = int(input("How many republican centers do you want to plot? "))
 
@@ -13,6 +10,11 @@ width = int(input("How wide do you want to create the nation? "))
 
 
 def setupNation(width, length):
+  '''
+  Builds a square nation in the form of a 2d array.
+  This nation is unpopulated, as is denoted by the default value
+  of " "
+  '''
   nation = []
   for i in range(0, width):
     nation.append([])
@@ -22,28 +24,20 @@ def setupNation(width, length):
   return nation
 
 
-def copyList(list):
-	secondList = []
-	for i in range(0,len(list)):
-		secondList.append([])
-		for j in range(0,len(list[i])):
-			secondList[i].append([])
-	return secondList
-
-
-def indexOrder(nation):
-	duplicate = []
-	duplicate = copyList(nation)
-	for i in range(0,int(len(duplicate)/2)):
-		for j in range(0,int(len(duplicate[i])/2)):
-			duplicate[i][j] = f"nation[{i}][{j}]"
-	return duplicate
 
 def printNation(nation):
-	for i in range(len(nation)):
-			print(nation[i])
+  '''
+  just a 2d array print fxn. Sure would be great if python had one.
+  '''
+  for i in range(len(nation)):
+    print(nation[i])
 
 def plotPartisanCities(dem_plots, gop_plots, nation):
+  '''
+  puts plots of population hubs (assumed to be equal in size)
+  of a given party affiliation on a 2d map of a square nation
+  plots dems as D and pubs as R
+  '''
 
   while(dem_plots > 0):
     x = random.randint(0, length-1)
@@ -65,6 +59,10 @@ def plotPartisanCities(dem_plots, gop_plots, nation):
 
 
 def horiMander(nation):
+  '''
+  models a possable gerymandering result via just doing
+  horizontal slices.
+  '''
   rDis = 0
   dDis = 0
   purple = 0
@@ -89,6 +87,10 @@ def horiMander(nation):
   print("Number of purple districts: " + str(purple))
 
 def vertiMander(nation):
+  '''
+  models a possable gerymandering result via just doing
+  Vertical slices.
+  '''
   rDis = 0
   dDis = 0
   purple = 0
@@ -110,7 +112,6 @@ def vertiMander(nation):
     else:
       purple = purple + 1
       
-
   print("In a Vertical districting:")
   print("Number of republican districts: " + str(rDis))
   print("Number of democratic districts: " + str(dDis))

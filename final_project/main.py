@@ -4,8 +4,8 @@ import random
 
 
 
-dem_plots = int(input("How many democrats do you want to plot? "))
-gop_plots = int(input("How many republicans do you want to plot? "))
+dem_plots = int(input("How many democrat centers do you want to plot? "))
+gop_plots = int(input("How many republican centers do you want to plot? "))
 
 length = int(input("How long do you want to create your nation? "))
 width = int(input("How wide do you want to create the nation? "))
@@ -92,10 +92,13 @@ def vertiMander(nation):
   rDis = 0
   dDis = 0
   purple = 0
-  for i in range(len(nation)):
+  rows = len(nation)
+  cols = len(nation[0])
+
+  for j in range(0, cols):
     r = 0
     d = 0
-    for j in range(len(nation[i])):
+    for i in range(0, rows):
       if nation[i][j] == "R":
         r = r + 1
       if nation[i][j] == "D":
@@ -106,8 +109,9 @@ def vertiMander(nation):
       dDis = dDis + 1
     else:
       purple = purple + 1
+      
 
-  print("In a Horizontal districting:")
+  print("In a Vertical districting:")
   print("Number of republican districts: " + str(rDis))
   print("Number of democratic districts: " + str(dDis))
   print("Number of purple districts: " + str(purple))
@@ -115,9 +119,14 @@ def vertiMander(nation):
 def main():
   _nation = setupNation(width, length)
 
+  print()
   plotPartisanCities(dem_plots, gop_plots, _nation)
   print('Raw nation output:')
   printNation(_nation)
+  print()
   horiMander(_nation)
+  print()
+  vertiMander(_nation)
+  
 
 main()
